@@ -11,4 +11,15 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
+  server: {
+    proxy: {
+      "/api": {
+        // Tips
+        // 更改完这里的参数记得重启项目
+        // target: "http://139.198.34.216:8201",
+        target: "http://syt.atguigu.cn",
+        changeOrigin: true,
+      },
+    },
+  },
 })

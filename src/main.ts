@@ -10,6 +10,7 @@ import router from "@/router"
 // 引入 elementUI 相关
 import ElementPlus from "element-plus"
 import "element-plus/dist/index.css"
+import zhCn from "element-plus/es/locale/lang/zh-cn"
 
 const app = createApp(App)
 
@@ -23,7 +24,9 @@ app.component("SYT-Footer", SYT_Footer)
 
 // 使用扩展
 app.use(router)
-app.use(ElementPlus)
+app.use(ElementPlus, {
+  locale: zhCn,
+})
 
 // 创建实例并挂载
 app.mount("#app")
