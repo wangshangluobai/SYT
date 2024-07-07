@@ -18,4 +18,11 @@ export default createRouter({
       redirect: "/home",
     },
   ],
+  // 路由切换——滚动行为控制
+  scrollBehavior() {
+    return {
+      left: 0,
+      top: 0,
+    }
+  },
 })

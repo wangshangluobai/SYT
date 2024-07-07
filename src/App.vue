@@ -3,7 +3,9 @@
 <template>
   <div class="container">
     <SYT-Header />
-    <div class="content">content</div>
+    <div class="content">
+      <router-view></router-view>
+    </div>
     <SYT-Footer />
   </div>
 </template>

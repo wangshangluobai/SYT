@@ -7,6 +7,10 @@ import App from "@/App.vue"
 // 路由扩展
 import router from "@/router"
 
+// 引入 elementUI 相关
+import ElementPlus from "element-plus"
+import "element-plus/dist/index.css"
+
 const app = createApp(App)
 
 // 全局组件
@@ -19,6 +23,7 @@ app.component("SYT-Footer", SYT_Footer)
 
 // 使用扩展
 app.use(router)
+app.use(ElementPlus)
 
 // 创建实例并挂载
 app.mount("#app")
