@@ -6,6 +6,8 @@ import "@/style/reset.scss"
 import App from "@/App.vue"
 // 路由扩展
 import router from "@/router"
+// pinia
+import pinia from "@/store/index"
 
 // 引入 elementUI 相关
 import ElementPlus from "element-plus"
@@ -27,6 +29,7 @@ app.use(router)
 app.use(ElementPlus, {
   locale: zhCn,
 })
+app.use(pinia)
 
 // 创建实例并挂载
 app.mount("#app")

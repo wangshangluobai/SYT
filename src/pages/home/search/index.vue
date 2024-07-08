@@ -20,31 +20,37 @@
 <script setup lang="ts">
   // 引入 El-plus 提供的图标
   import { Search } from "@element-plus/icons-vue"
-  import { ref } from "vue";
-  import { useRouter } from "vue-router";
+  import { ref } from "vue"
+  import { useRouter } from "vue-router"
   import { reqFindByHosName } from "@/api/home/index"
   import { FindByHosNames } from "@/api/home/type"
 
   let $router = useRouter()
 
-  let searchKeyWord = ref<string>('')
+  let searchKeyWord = ref<string>("")
 
   const onSearch = async () => {
     const resoult: FindByHosNames = await reqFindByHosName()
-    if(resoult.code === 200){
-      // 
+    if (resoult.code === 200) {
+      //
     }
   }
   const fetchData = async (keyword, callback) => {
-    if(!keyword) return;
+    if (!keyword) return
 
     const resoult: FindByHosNames = await reqFindByHosName(keyword)
-    const showList = resoult.data.map(i => ({ value: i.hosname, hoscode: i.hoscode }))
+    const showList = resoult.data.map((i) => ({
+      value: i.hosname,
+      hoscode: i.hoscode,
+    }))
 
     callback(showList)
   }
   const onSelect = (item: any) => {
-    $router.push({ path: '/hospital' })
+    $router.push({
+      path: "/hospital/register",
+      query: { hoscode: item.hoscode },
+    })
   }
 </script>
 
