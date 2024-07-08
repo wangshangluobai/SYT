@@ -29,7 +29,9 @@
           @current-change="onCurentChange"
           class="pageination" />
       </el-col>
-      <el-col :span="4"></el-col>
+      <el-col :span="4">
+        <Tips />
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -40,6 +42,7 @@
   import Leval from "./leval/index.vue"
   import Region from "./region/index.vue"
   import Card from "./card/index.vue"
+  import Tips from "./tips/index.vue";
 
   import { ref, onMounted } from "vue"
   import { reqHospital } from "@/api/home/index"

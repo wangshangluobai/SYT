@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card shadow="hover">
+    <el-card shadow="hover" @click="goDetail">
       <div class="content">
         <div class="left">
           <div class="hospital-name">{{ hospitalInfo.hosname }}</div>
@@ -64,7 +64,15 @@
   // [vite] Internal server error: At least one <template> or <script> is required in a single file component.
   // 此报错可尝试重启项目解决
 
+  import { ref } from "vue";
+  import { useRouter } from "vue-router";
+  
   defineProps(["hospitalInfo"])
+  const $router = useRouter()
+
+  const goDetail = () => {
+    $router.push({ path: '/hospital' })
+  }
 </script>
 
 <style scoped lang="scss">

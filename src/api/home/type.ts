@@ -92,3 +92,8 @@ export type HospitalLevelAndRegionContent = HospitalLevelAndRegion[]
 export interface HospitalDict extends ResponseData {
   data: HospitalLevelAndRegionContent
 }
+
+// 根据名字获取医院信息请求结构
+export interface FindByHosNames extends ResponseData {
+  data: hospitalContent
+}

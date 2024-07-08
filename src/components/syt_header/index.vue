@@ -2,7 +2,7 @@
   <div class="top">
     <div class="content">
       <!-- left -->
-      <div class="left">
+      <div class="left" @click="goHome">
         <img
           src="../../assets/images/logo.png"
           alt="logo" />
@@ -16,7 +16,15 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRouter } from "vue-router";
+
+const $router = useRouter()
+
+const goHome = () => {
+  $router.push({ path: '/home' })
+}
+</script>
 
 <style scoped lang="scss">
   .top {
