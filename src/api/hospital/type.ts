@@ -5,7 +5,7 @@ export interface RequestHospitalDetail {
   ok: boolean
 }
 
-// 医院详情
+// 医院详情子项 BookingRule
 export interface BookingRule {
   cycle: number
   releaseTime: string
@@ -15,6 +15,7 @@ export interface BookingRule {
   rule: string[]
 }
 
+// 医院详情子项 Hospital
 export interface Hospital {
   id: string
   createTime: string
@@ -38,11 +39,29 @@ export interface Hospital {
   bookingRule: null
 }
 
+// 医院详情 data
 export interface HospitalDetailData {
   bookingRule: BookingRule
   hospital: Hospital
 }
 
+// 医院详情请求返回数据
 export interface HospitalDetailInfo extends RequestHospitalDetail {
   data: HospitalDetailData
+}
+
+
+// 医院部门字段
+export interface HospitalDepatmentField {
+  "depcode": string
+      "depname": string
+      "children"?: HospitalDepatmentField[]
+}
+
+// 医院部门容器
+export type HospitalDepatmentContent = HospitalDepatmentField[]
+
+// 医院部门接口返回数据
+export interface HospitalDepatmentInfo extends RequestHospitalDetail {
+  data: HospitalDepatmentContent
 }

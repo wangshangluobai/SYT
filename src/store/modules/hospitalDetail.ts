@@ -1,13 +1,14 @@
 import { defineStore } from "pinia"
-import { reqHospitalDetail } from "@/api/hospital/index"
-import type { HospitalDetailInfo } from "@/api/hospital/type"
+import { reqHospitalDetail, reqHospitalDepartment } from "@/api/hospital/index"
+import type { HospitalDetailInfo, HospitalDetailData, HospitalDepatmentContent,
+  HospitalDepatmentInfo } from "@/api/hospital/type"
 import { DetailState } from "@/store/modules/interface"
-import { HospitalDetailData } from "@/api/hospital/type"
 
 const useDetailStore = defineStore("Detail", {
   state: (): DetailState => {
     return {
       hospitalInfo: {} as HospitalDetailData,
+      hospitalDepartmentInfo: {} as HospitalDepatmentContent,
     }
   },
   actions: {
@@ -17,6 +18,13 @@ const useDetailStore = defineStore("Detail", {
         this.hospitalInfo = resoult.data
       }
     },
+
+    async getHospitalDepartment(hoscode: string) {
+      const resoult: HospitalDepatmentInfo = await reqHospitalDepartment(hoscode)
+      if (resoult.code === 200) {
+        this.hospitalDepartmentInfo = resoult.data
+      }
+    }
   },
   getters: {},
 })

@@ -8,8 +8,7 @@
       <el-menu
         :default-active="$route.path"
         class="el-menu-vertical-demo"
-        @open="handleOpen"
-        @close="handleClose">
+        >
         <el-menu-item
           index="/hospital/register"
           @click="changeActive('/hospital/register')">
@@ -17,16 +16,16 @@
           <span>预约挂号</span>
         </el-menu-item>
         <el-menu-item
-          index="/hospital/notice"
-          @click="changeActive('/hospital/notice')">
-          <el-icon><Document /></el-icon>
-          <span>预约须知</span>
-        </el-menu-item>
-        <el-menu-item
           index="/hospital/detail"
           @click="changeActive('/hospital/detail')">
           <el-icon><Bell /></el-icon>
           <span>医院详情</span>
+        </el-menu-item>
+        <el-menu-item
+          index="/hospital/notice"
+          @click="changeActive('/hospital/notice')">
+          <el-icon><Document /></el-icon>
+          <span>预约须知</span>
         </el-menu-item>
         <el-menu-item
           index="/hospital/close"
@@ -66,11 +65,14 @@
   let detailStore = useDetailStore()
 
   onMounted(() => {
+    // 获取医院详情
     detailStore.getHospital($route.query.hoscode)
+    // 获取医院部门数据
+    detailStore.getHospitalDepartment($route.query.hoscode)
   })
 
-  const changeActive = (path) => {
-    $router.push(path)
+  const changeActive = (path: string) => {
+    $router.push({path, query: {hoscode:$route.query.hoscode}})
   }
 </script>
 

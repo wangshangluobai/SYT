@@ -72,6 +72,17 @@
         </div>
       </div>
     </div>
+
+    <div class="department">
+      <div class="left-nav">
+        <ul>
+          <li v-for="item in hospitalStore.hospitalDepartmentInfo" :key="item.depcode">
+            {{ item.depname }}
+          </li>
+        </ul>
+      </div>
+      <div class="deparment-sub"></div>
+    </div>
   </div>
 </template>
 
@@ -85,6 +96,7 @@
   .register {
     .top {
       display: flex;
+      align-items: center;
 
       .title {
         font-size: 28px;
@@ -109,8 +121,6 @@
       margin-top: 20px;
 
       .left {
-        width: 80px;
-
         img {
           width: 80px;
           height: 80px;
@@ -137,6 +147,22 @@
         .rule {
           margin: 10px 0px;
         }
+      }
+    }
+
+    .department {
+      width: 100%;
+      height: 500px;
+      display: flex;
+      margin-top: 20px;
+
+      .left-nav {
+        width: 80%;
+      }
+
+      .department-sub {
+        flex: 1;
+        margin-left: 20px;
       }
     }
   }
