@@ -76,20 +76,57 @@
     <div class="department">
       <div class="left-nav">
         <ul>
-          <li v-for="item in hospitalStore.hospitalDepartmentInfo" :key="item.depcode">
+          <li
+            :class="{ active: currentIndex === index }"
+            v-for="(item, index) in hospitalStore.hospitalDepartmentInfo"
+            @click="changeIndex(index)"
+            :key="item.depcode">
             {{ item.depname }}
           </li>
         </ul>
       </div>
-      <div class="deparment-sub"></div>
+      <div class="department-sub">
+        <div
+          class="department-box"
+          v-for="(item, index) in hospitalStore.hospitalDepartmentInfo"
+          :key="item.depcode">
+          <h1 class="cur">{{ item.depname }}</h1>
+          <ul>
+            <li
+              v-for="i in item.children"
+              @click="showLogin"
+              :key="i.depcode">
+              {{ i.depname }}
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
   import useDetailStore from "@/store/modules/hospitalDetail"
+  import useUserStore from "@/store/modules/user"
+  import { ref } from "vue"
 
   let hospitalStore = useDetailStore()
+  let userStore = useUserStore()
+  let currentIndex = ref<number>(0)
+
+  const changeIndex = (index) => {
+    currentIndex.value = index
+
+    // Tips 可以记录一下的
+    let allH1 = document.querySelectorAll(".cur")
+    allH1[currentIndex.value].scrollIntoView({
+      behavior: "smooth",
+    })
+  }
+
+  const showLogin = () => {
+    userStore.visiable = true
+  }
 </script>
 
 <style scoped lang="scss">
@@ -157,12 +194,60 @@
       margin-top: 20px;
 
       .left-nav {
-        width: 80%;
+        width: 80px;
+        height: 100%;
+
+        ul {
+          width: 100%;
+          height: 100%;
+          background: rgb(248, 248, 248);
+          display: flex;
+          flex-direction: column;
+
+          li {
+            flex: 1;
+            text-align: center;
+            color: #7f7f7f;
+            font-size: 14px;
+            line-height: 40px;
+            border-left: 1px solid rgb(248, 248, 248);
+
+            &.active {
+              border-left-color: tomato;
+              color: tomato;
+              background: #fff;
+            }
+          }
+        }
       }
 
       .department-sub {
         flex: 1;
         margin-left: 20px;
+        height: 100%;
+        overflow: auto;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .department-box {
+          h1 {
+            background-color: rgb(248, 248, 248);
+            color: #7f7f7f;
+          }
+
+          ul {
+            display: flex;
+            flex-wrap: wrap;
+
+            li {
+              color: #7f7f7f;
+              width: 33%;
+              line-height: 30px;
+              cursor: pointer;
+            }
+          }
+        }
       }
     }
   }

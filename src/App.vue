@@ -7,6 +7,7 @@
       <router-view></router-view>
     </div>
     <SYT-Footer />
+    <Login />
   </div>
 </template>
 

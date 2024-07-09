@@ -2,7 +2,9 @@
   <div class="top">
     <div class="content">
       <!-- left -->
-      <div class="left" @click="goHome">
+      <div
+        class="left"
+        @click="goHome">
         <img
           src="../../assets/images/logo.png"
           alt="logo" />
@@ -10,20 +12,30 @@
       </div>
       <div class="right">
         <p class="help">帮助中心</p>
-        <p class="login">登录/注册</p>
+        <p
+          class="login"
+          @click="login">
+          登录/注册
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useRouter } from "vue-router";
+  import { useRouter } from "vue-router"
+  import useUserStore from "@/store/modules/user"
 
-const $router = useRouter()
+  let userStore = useUserStore()
+  const $router = useRouter()
 
-const goHome = () => {
-  $router.push({ path: '/home' })
-}
+  const goHome = () => {
+    $router.push({ path: "/home" })
+  }
+
+  const login = () => {
+    userStore.visiable = true
+  }
 </script>
 
 <style scoped lang="scss">
@@ -67,6 +79,9 @@ const goHome = () => {
 
         .help {
           margin-right: 10px;
+        }
+        .login {
+          cursor: pointer;
         }
       }
     }
