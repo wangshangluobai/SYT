@@ -8,20 +8,25 @@
           <el-col :span="12">
             <div class="login-info">
               <div v-show="scene === 0">
-                <el-form>
+                <el-form :model="loginParams">
                   <el-form-item>
                     <el-input
+                    v-model="loginParams.phone"
                       placeholder="请输入手机号"
                       :prefix-icon="User"></el-input>
                   </el-form-item>
                   <el-form-item>
                     <el-input
+                    v-model="loginParams.code"
                       :prefix-icon="Lock"
                       placeholder="请输入验证码"
                       disabled></el-input
                   ></el-form-item>
                   <el-form-item>
-                    <el-button disabled>获取验证码</el-button>
+                    <el-button :disabled="!isPhone || flag" @click="getCode">
+                      <CountDown v-if="flag" :flag="flag" @getFlag="getFlag" />
+                      <span v-else>获取验证码</span>
+                    </el-button>
                   </el-form-item>
                 </el-form>
                 <el-button
@@ -157,17 +162,41 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from "vue"
+  import { ref, reactive, computed } from "vue"
   import useUserStore from "@/store/modules/user"
   import { User, Lock } from "@element-plus/icons-vue"
 
+  let isPhone = computed(() => {
+    const phoneReg = /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/
+      return phoneReg.test(loginParams.phone)
+  })
+    
   let userStore = useUserStore()
   // 0 代表号码登录 1代表二维码登录
-  let scene = ref<number>(0)
+let scene = ref<number>(0)
+  let count = ref<number>(5)
+
+let loginParams = reactive({
+  phone: "",
+  code: ""
+})
 
   const changeScene = () => {
     scene.value = 1
   }
+
+  // Tips: 验证码接口异常
+const getCode = async () => {
+  try {
+    loginParams.code = await userStore.getCode(loginParams.phone)
+  } catch (error) {
+    loginParams.code = ''
+  }
+}
+
+const getFlag = (value: boolean) => {
+  flag.value = value
+}
 </script>
 
 <style scoped lang="scss">
@@ -178,7 +207,7 @@
     }
 
     .content {
-      margin-top: 2x0px;
+      margin-top: 20px;
     }
 
     .login-info {
