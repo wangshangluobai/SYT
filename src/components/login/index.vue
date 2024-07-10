@@ -8,23 +8,31 @@
           <el-col :span="12">
             <div class="login-info">
               <div v-show="scene === 0">
-                <el-form :model="loginParams">
-                  <el-form-item>
+                <el-form
+                  ref="form"
+                  :model="loginParams"
+                  :rules="rules">
+                  <el-form-item prop="phone">
                     <el-input
-                    v-model="loginParams.phone"
+                      v-model="loginParams.phone"
                       placeholder="请输入手机号"
                       :prefix-icon="User"></el-input>
                   </el-form-item>
-                  <el-form-item>
+                  <el-form-item prop="code">
                     <el-input
-                    v-model="loginParams.code"
+                      v-model="loginParams.code"
                       :prefix-icon="Lock"
                       placeholder="请输入验证码"
                       disabled></el-input
                   ></el-form-item>
                   <el-form-item>
-                    <el-button :disabled="!isPhone || flag" @click="getCode">
-                      <CountDown v-if="flag" :flag="flag" @getFlag="getFlag" />
+                    <el-button
+                      :disabled="!isPhone || flag"
+                      @click="getCode">
+                      <CountDown
+                        v-if="flag"
+                        :flag="flag"
+                        @getFlag="getFlag" />
                       <span v-else>获取验证码</span>
                     </el-button>
                   </el-form-item>
@@ -33,6 +41,8 @@
                   style="width: 100%"
                   type="primary"
                   size="default"
+                  :disabled="!isPhone || loginParams.code.length !== 6"
+                  @click="login"
                   >用户登录</el-button
                 >
                 <div
@@ -165,38 +175,106 @@
   import { ref, reactive, computed } from "vue"
   import useUserStore from "@/store/modules/user"
   import { User, Lock } from "@element-plus/icons-vue"
+  import { ElMessage } from "element-plus"
+  import type { FormInstance } from "element-plus"
+
+  const form = ref<FormInstance>()
 
   let isPhone = computed(() => {
-    const phoneReg = /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/
-      return phoneReg.test(loginParams.phone)
+    const phoneReg =
+      /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/
+    return phoneReg.test(loginParams.phone)
   })
-    
+
+  const validatorPhone = (rule: any, value: any, callback: any) => {
+    const phoneReg =
+      /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/
+    if (phoneReg.test(loginParams.phone)) {
+      callback()
+    } else {
+      callback(new Error("请输入正确的手机号"))
+    }
+  }
+
+  const validatorCode = (rule: any, value: any, callback: any) => {
+    if (/^\d{6}$/.test(loginParams.code)) {
+      callback()
+    } else {
+      callback(new Error("请输入正确的验证码  "))
+    }
+  }
+
+  const rules = {
+    // phone: [
+    //   {
+    //     require: true,
+    //     message: "手机号必须存在",
+    //     trigger: "change",
+    //     min: 11,
+    //   },
+    // ],
+    // code: [
+    //   {
+    //     require: true,
+    //     message: "验证码必须五位",
+    //     trigger: "blue",
+    //     min: 6,
+    //   },
+    // ],
+    phone: [
+      {
+        trigger: "change",
+        validator: validatorPhone,
+      },
+    ],
+    code: [
+      {
+        trigger: "change",
+        validator: validatorCode,
+      },
+    ],
+  }
   let userStore = useUserStore()
   // 0 代表号码登录 1代表二维码登录
-let scene = ref<number>(0)
-  let count = ref<number>(5)
+  let scene = ref<number>(0)
+  let flag = ref<boolean>(false)
 
-let loginParams = reactive({
-  phone: "",
-  code: ""
-})
+  let loginParams = reactive({
+    phone: "",
+    code: "",
+  })
 
   const changeScene = () => {
     scene.value = 1
   }
 
   // Tips: 验证码接口异常
-const getCode = async () => {
-  try {
-    loginParams.code = await userStore.getCode(loginParams.phone)
-  } catch (error) {
-    loginParams.code = ''
+  const getCode = async () => {
+    try {
+      loginParams.code = await userStore.getCode(loginParams.phone)
+    } catch (error) {
+      loginParams.code = ""
+    }
+    flag.value = true
   }
-}
 
-const getFlag = (value: boolean) => {
-  flag.value = value
-}
+  const getFlag = (value: boolean) => {
+    flag.value = value
+  }
+
+  const login = async () => {
+    // Tips
+    // await form.value.validate()
+    try {
+      await userStore.userLogin(loginParams)
+      userStore.visiable = false
+    } catch (error) {
+      ElMessage({
+        type: "error",
+        message: (error as Error).message,
+      })
+    }
+  }
 </script>
 
 <style scoped lang="scss">

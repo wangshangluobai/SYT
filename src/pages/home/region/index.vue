@@ -35,14 +35,14 @@
   })
 
   const getHospitalDict = async () => {
-    const resoult: HospitalDict = await reqHospitalLevelAndRegion("Beijin")
+    const result: HospitalDict = await reqHospitalLevelAndRegion("Beijin")
     console.log(
-      "%c [ resoult ]-33",
+      "%c [ result ]-33",
       "font-size:13px; background:#658039; color:#a9c47d;",
-      resoult
+      result
     )
-    if (resoult.code === 200) {
-      hospitalRegion.value = resoult.data
+    if (result.code === 200) {
+      hospitalRegion.value = result.data
     }
   }
 

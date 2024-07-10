@@ -1,7 +1,11 @@
 import { defineStore } from "pinia"
 import { reqHospitalDetail, reqHospitalDepartment } from "@/api/hospital/index"
-import type { HospitalDetailInfo, HospitalDetailData, HospitalDepatmentContent,
-  HospitalDepatmentInfo } from "@/api/hospital/type"
+import type {
+  HospitalDetailInfo,
+  HospitalDetailData,
+  HospitalDepatmentContent,
+  HospitalDepatmentInfo,
+} from "@/api/hospital/type"
 import { DetailState } from "@/store/modules/interface"
 
 const useDetailStore = defineStore("Detail", {
@@ -13,18 +17,18 @@ const useDetailStore = defineStore("Detail", {
   },
   actions: {
     async getHospital(hoscode: string) {
-      const resoult: HospitalDetailInfo = await reqHospitalDetail(hoscode)
-      if (resoult.code === 200) {
-        this.hospitalInfo = resoult.data
+      const result: HospitalDetailInfo = await reqHospitalDetail(hoscode)
+      if (result.code === 200) {
+        this.hospitalInfo = result.data
       }
     },
 
     async getHospitalDepartment(hoscode: string) {
-      const resoult: HospitalDepatmentInfo = await reqHospitalDepartment(hoscode)
-      if (resoult.code === 200) {
-        this.hospitalDepartmentInfo = resoult.data
+      const result: HospitalDepatmentInfo = await reqHospitalDepartment(hoscode)
+      if (result.code === 200) {
+        this.hospitalDepartmentInfo = result.data
       }
-    }
+    },
   },
   getters: {},
 })

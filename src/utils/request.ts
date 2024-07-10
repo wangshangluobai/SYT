@@ -18,7 +18,7 @@ request.interceptors.response.use(
     return response.data
   },
   (error) => {
-    let status = error.response.status
+    let status = error.response?.status
     switch (status) {
       case 404:
         ElMessage({

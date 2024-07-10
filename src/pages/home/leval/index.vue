@@ -36,9 +36,9 @@
   })
 
   const getHospitalDict = async () => {
-    const resoult: HospitalDict = await reqHospitalLevelAndRegion("HosType")
-    if (resoult.code === 200) {
-      hospitalLevel.value = resoult.data
+    const result: HospitalDict = await reqHospitalLevelAndRegion("HosType")
+    if (result.code === 200) {
+      hospitalLevel.value = result.data
     }
   }
 

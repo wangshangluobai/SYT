@@ -50,12 +50,11 @@ export interface HospitalDetailInfo extends RequestHospitalDetail {
   data: HospitalDetailData
 }
 
-
 // 医院部门字段
 export interface HospitalDepatmentField {
-  "depcode": string
-      "depname": string
-      "children"?: HospitalDepatmentField[]
+  depcode: string
+  depname: string
+  children?: HospitalDepatmentField[]
 }
 
 // 医院部门容器
@@ -64,4 +63,21 @@ export type HospitalDepatmentContent = HospitalDepatmentField[]
 // 医院部门接口返回数据
 export interface HospitalDepatmentInfo extends RequestHospitalDetail {
   data: HospitalDepatmentContent
+}
+
+// 登录接口参数
+export interface LoginData {
+  phone: string
+  code: string
+}
+
+// 登录接口返回用户信息数据
+export interface UserInfo {
+  name: string
+  token: string
+}
+
+// 登录接口返回的数据
+export interface UserLoginResponseData extends RequestHospitalDetail {
+  data: UserInfo
 }

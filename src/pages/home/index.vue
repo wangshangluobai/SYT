@@ -42,7 +42,7 @@
   import Leval from "./leval/index.vue"
   import Region from "./region/index.vue"
   import Card from "./card/index.vue"
-  import Tips from "./tips/index.vue";
+  import Tips from "./tips/index.vue"
 
   import { ref, onMounted } from "vue"
   import { reqHospital } from "@/api/home/index"
@@ -61,15 +61,15 @@
   })
 
   const getHospitalInfo = async () => {
-    const resoult: HospitalResponseData = await reqHospital(
+    const result: HospitalResponseData = await reqHospital(
       currentPage.value,
       pageSize.value,
       hostype.value,
       districtCode.value
     )
-    if (resoult.code === 200) {
-      hospitalInfo.value = resoult.data.content
-      pageTotal.value = resoult.data.totalElements || 0
+    if (result.code === 200) {
+      hospitalInfo.value = result.data.content
+      pageTotal.value = result.data.totalElements || 0
     }
   }
 

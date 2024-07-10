@@ -30,16 +30,16 @@
   let searchKeyWord = ref<string>("")
 
   const onSearch = async () => {
-    const resoult: FindByHosNames = await reqFindByHosName()
-    if (resoult.code === 200) {
+    const result: FindByHosNames = await reqFindByHosName()
+    if (result.code === 200) {
       //
     }
   }
   const fetchData = async (keyword, callback) => {
     if (!keyword) return
 
-    const resoult: FindByHosNames = await reqFindByHosName(keyword)
-    const showList = resoult.data.map((i) => ({
+    const result: FindByHosNames = await reqFindByHosName(keyword)
+    const showList = result.data.map((i) => ({
       value: i.hosname,
       hoscode: i.hoscode,
     }))
