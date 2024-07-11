@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 import { reqCode, reqUserLogin } from "@/api/hospital"
 import { UserLoginResponseData, LoginData, UserInfo } from "@/api/hospital/type"
 import { UserState } from "@/store/modules/interface/index"
-import { SET_TOKEN, GET_TOKEN } from "@/utils/user"
+import { SET_TOKEN, GET_TOKEN, REMOVE_TOKEN } from "@/utils/user"
 
 const useUserStore = defineStore("User", {
   state: (): UserState => {
@@ -30,6 +30,10 @@ const useUserStore = defineStore("User", {
         return Promise.reject(new Error(result.message))
       }
     },
+    logout() {
+      this.userInfo = { name: "", token: "" }
+      REMOVE_TOKEN()
+    }
   },
   getters: {},
 })

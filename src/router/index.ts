@@ -33,6 +33,10 @@ export default createRouter({
           path: "search",
           component: () => import("@/pages/hospital/search/index.vue"),
         },
+        {
+          path: "stepFirst",
+          component: () => import("@/pages/hospital/register/stepFirst.vue")
+        }
       ],
     },
     {

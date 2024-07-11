@@ -94,7 +94,7 @@
           <ul>
             <li
               v-for="i in item.children"
-              @click="showLogin"
+              @click="showLogin(i)"
               :key="i.depcode">
               {{ i.depname }}
             </li>
@@ -108,10 +108,13 @@
 <script setup lang="ts">
   import useDetailStore from "@/store/modules/hospitalDetail"
   import useUserStore from "@/store/modules/user"
-  import { ref } from "vue"
+import { ref } from "vue"
+  import { useRoute, useRouter } from "vue-router";
 
   let hospitalStore = useDetailStore()
-  let userStore = useUserStore()
+let userStore = useUserStore()
+  let $route = useRoute()
+  let $router = useRouter()
   let currentIndex = ref<number>(0)
 
   const changeIndex = (index) => {
@@ -124,8 +127,13 @@
     })
   }
 
-  const showLogin = () => {
-    userStore.visiable = true
+  const showLogin = (item) => {
+    // userStore.visiable = true
+    $router.push({
+      path: "/hospital/stepFirst", query: {
+        hoscode: $route.query.hoscode,
+      depcode: item.depcode
+    }})
   }
 </script>
 

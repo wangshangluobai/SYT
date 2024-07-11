@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useUserStore from "@/store/modules/user"
+
+let userStore = useUserStore()
+</script>
 
 <template>
   <div class="container">
@@ -7,7 +11,7 @@
       <router-view></router-view>
     </div>
     <SYT-Footer />
-    <Login />
+    <Login v-if="userStore.visiable" />
   </div>
 </template>
 

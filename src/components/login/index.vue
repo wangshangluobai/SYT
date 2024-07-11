@@ -2,7 +2,8 @@
   <div class="login-container">
     <el-dialog
       v-model="userStore.visiable"
-      title="用户登录">
+      title="用户登录"
+      @close="onCloseDialog">
       <div class="content">
         <el-row>
           <el-col :span="12">
@@ -165,7 +166,7 @@
         </el-row>
       </div>
       <template #footer>
-        <el-button>关闭窗口</el-button>
+        <el-button @click="handleCloseDialog">关闭窗口</el-button>
       </template>
     </el-dialog>
   </div>
@@ -274,6 +275,16 @@
         message: (error as Error).message,
       })
     }
+}
+
+// const onCloseDialog = () => {
+//   Object.assign(loginParams, { phone: "", code: "" })
+//     form.value.resetFields()
+// }
+
+const handleCloseDialog = () => {
+  // onCloseDialog()
+  userStore.visiable = false
   }
 </script>
 
