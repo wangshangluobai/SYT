@@ -33,7 +33,7 @@ const useUserStore = defineStore("User", {
     logout() {
       this.userInfo = { name: "", token: "" }
       REMOVE_TOKEN()
-    }
+    },
   },
   getters: {},
 })

@@ -4,6 +4,8 @@ import {
   HospitalDepatmentInfo,
   LoginData,
   UserLoginResponseData,
+  HospitalWordData,
+  DoctorResponseData,
 } from "@/api/hospital/type"
 
 enum API {
@@ -11,6 +13,8 @@ enum API {
   HOSPITAL_DEPARMENT = "/hosp/hospital/department/",
   USER_CODE = "/sms/send/",
   USER_LOGIN = "/user/login",
+  HOSPITAL_WORK = "/hosp/hospital/auth/getBookingScheduleRule/",
+  HOSPITAL_DOCTOR = "/hosp/hospital/auth/findScheduleList/",
 }
 
 // 获取医院详情
@@ -28,3 +32,24 @@ export const reqCode = (phone: string) =>
 // 用户登录
 export const reqUserLogin = (data: LoginData) =>
   request.post<any, UserLoginResponseData>(API.USER_LOGIN, data)
+
+// 获取预约信息
+export const reqHospitalWork = (
+  page: number,
+  limit: number,
+  hoscode: string,
+  depcode: string
+) =>
+  request.get<any, HospitalWordData>(
+    API.HOSPITAL_WORK + `${page}/${limit}/${hoscode}/${depcode}`
+  )
+
+// 获取医生信息
+export const reqHospitalDoctor = (
+  hoscode: string,
+  depcode: string,
+  workDate: string
+) =>
+  request.get<any, DoctorResponseData>(
+    API.HOSPITAL_DOCTOR + `${hoscode}/${depcode}/${workDate}`
+  )

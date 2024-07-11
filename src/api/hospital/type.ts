@@ -81,3 +81,65 @@ export interface UserInfo {
 export interface UserLoginResponseData extends RequestHospitalDetail {
   data: UserInfo
 }
+
+// 挂号信息
+export interface BaseMap {
+  workDateString: string
+  releaseTime: string
+  bigname: string
+  stopTime: string
+  depname: string
+  hosname: string
+}
+
+export interface WorkData {
+  workDate: string
+  workDateMd: string
+  dayOfWeek: string
+  docCount: number
+  reservedNumber: null
+  availableNumber: number
+  status: number
+}
+
+export type BookingScheduleList = WorkData[]
+
+export interface HospitalWordData extends RequestHospitalDetail {
+  data: {
+    total: number
+    bookingScheduleList: BookingScheduleList
+    baseMap: BaseMap
+  }
+}
+
+//代表的是一个医生的数据
+export interface Doctor {
+  id: string
+  createTime: string
+  updateTime: string
+  isDeleted: string
+  param: {
+    dayOfWeek: string
+    depname: string
+    hosname: string
+  }
+  hoscode: string
+  depcode: string
+  title: string
+  docname: string
+  skill: string
+  workDate: string
+  workTime: number
+  reservedNumber: number
+  availableNumber: number
+  amount: number
+  status: number
+  hosScheduleId: string
+}
+
+//数组包含全部医生
+export type DocArr = Doctor[]
+//获取医生排班接口返回的数据
+export interface DoctorResponseData extends RequestHospitalDetail {
+  data: DocArr
+}

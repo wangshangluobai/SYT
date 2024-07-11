@@ -53,11 +53,11 @@
 
   const login = () => {
     userStore.visiable = true
-}
+  }
 
-const logout = () => {
-  userStore.logout()
-  $router.push({path: "/home"})
+  const logout = () => {
+    userStore.logout()
+    $router.push({ path: "/home" })
   }
 </script>
 
