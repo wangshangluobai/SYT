@@ -43,7 +43,7 @@
       <div
         class="will"
         v-if="workTime.status == 1">
-        <span class="time">234567432</span>
+        <span class="time">{{workTime.workDate}}</span>
         <span class="will-text">放号</span>
       </div>
       <div
@@ -84,6 +84,7 @@
               <el-button
                 type="primary"
                 size="default"
+                @click="goStep2(d)"
                 >{{ d.availableNumber }}</el-button
               >
             </div>
@@ -128,6 +129,7 @@
               <el-button
                 type="primary"
                 size="default"
+                @click="goStep2(d)"
                 >{{ d.availableNumber }}</el-button
               >
             </div>
@@ -147,9 +149,10 @@
     DocArr,
     Doctor,
   } from "@/api/hospital/type"
-  import { useRoute } from "vue-router"
+  import { useRoute, useRouter } from "vue-router"
 
-  let $route = useRoute()
+let $route = useRoute()
+  let $router = useRouter()
 
   let morningArr = computed(() => {
     return docArr.value.filter((i: Doctor) => {
@@ -206,7 +209,11 @@
   const changeTime = (item: any) => {
     workTime.value = item
     getDoctorWorkData()
-  }
+}
+
+const goStep2 = (d: Doctor) => {
+  $router.push({path: '/hospital/stepSecond', query: {docId: d.id}})
+}
 
   onMounted(() => {
     getHospitalWork()

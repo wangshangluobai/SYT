@@ -36,6 +36,10 @@ export default createRouter({
         {
           path: "stepFirst",
           component: () => import("@/pages/hospital/register/stepFirst.vue")
+        },
+        {
+          path: "stepSecond",
+          component: () => import("@/pages/hospital/register/stepSecond.vue")
         }
       ],
     },
