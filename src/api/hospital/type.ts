@@ -143,3 +143,51 @@ export type DocArr = Doctor[]
 export interface DoctorResponseData extends RequestHospitalDetail {
   data: DocArr
 }
+
+// 病人信息
+export interface PatientUser {
+  address: string
+  birthdate: string
+  cardNo: string
+  certificatesNo: string
+  certificatesType: string
+  cityCode: string
+  contactsCertificatesNo: string
+  contactsCertificatesType: string
+  contactsName: string
+  contactsPhone: string
+  createTime: string
+  districtCode: string
+  id: number
+  isDeleted: number
+  isInsure: number
+  isMarry: number
+  name: string
+  param: {
+    certificatesTypeString: string
+    contactsCertificatesTypeString: string
+    cityString: string
+    fullAddress: string
+    districtString: string
+    provinceString: string
+  }
+  phone: string
+  provinceCode: string
+  sex: number
+  status: string
+  updateTime: string
+  userId: number
+}
+
+export type PatientUserContainer = PatientUser[]
+
+// 获取病人信息接口数据
+export interface ReqPatientUser extends RequestHospitalDetail {
+  data: PatientUserContainer
+}
+
+//获取某一个挂号医生数据详情
+
+export interface DoctorInfoData extends RequestHospitalDetail {
+  data: Doctor
+}
