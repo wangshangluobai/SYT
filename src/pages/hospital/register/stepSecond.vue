@@ -82,7 +82,7 @@
       <el-button
         type="primary"
         size="default"
-        @click=""
+        @click="submitOrder"
         :disabled="currentIndex === -1"
         >确认挂号</el-button
       >
@@ -92,7 +92,7 @@
 
 <script setup lang="ts">
   import { onMounted, ref } from "vue"
-  import { useRoute } from "vue-router"
+  import { useRoute, useRouter } from "vue-router"
   import { User } from "@element-plus/icons-vue"
   import Visitor from "@/pages/hospital/register/visitor.vue"
   import type {
@@ -102,8 +102,12 @@
     Doctor,
   } from "@/api/hospital/type"
   import { reqPatientUser, reqDoctorInfo } from "@/api/hospital/index"
+  import { reqSubmitOrder } from "@/api/user/index"
+  import type { SubmitOrder } from "@/api/user/type"
+  import { ElMessage } from "element-plus"
 
   let $route = useRoute()
+  let $router = useRouter()
 
   let patientUsers = ref<PatientUserContainer>([])
   let doctorInfo = ref<Doctor>({} as Doctor)
@@ -127,6 +131,25 @@
 
   const onChangeIndex = (index: number) => {
     currentIndex.value = index
+  }
+
+  const submitOrder = async () => {
+    let hoscode = doctorInfo.value.hoscode
+    let scheduleId = doctorInfo.value.id
+    let patientId = patientUsers.value[currentIndex.value].id
+    const result: SubmitOrder = await reqSubmitOrder(
+      hoscode,
+      scheduleId,
+      patientId
+    )
+    if (result.code === 200) {
+      $router.push({ path: "/user/order", query: { orderId: result.data } })
+    } else {
+      ElMessage({
+        type: "error",
+        message: result.message,
+      })
+    }
   }
 
   onMounted(() => {
