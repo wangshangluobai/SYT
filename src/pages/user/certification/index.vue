@@ -98,7 +98,7 @@
           action="/api/oss/file/fileUpload?fileHost=userAuah">
           <img
             style="width: 100%; height: 100%"
-            src="../../../assets/images/auth_example.png"
+            :src="`https://picsum.photos/800/800`"
             alt="" />
         </el-upload>
 
