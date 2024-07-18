@@ -1,4 +1,5 @@
 // 引入路由函数
+import { title } from "process"
 import { createRouter, createWebHistory } from "vue-router"
 
 export default createRouter({
@@ -8,38 +9,65 @@ export default createRouter({
     {
       path: "/home",
       component: () => import("@/pages/home/index.vue"),
+      meta: {
+        title: "首页",
+      },
     },
     {
       path: "/hospital",
       component: () => import("@/pages/hospital/index.vue"),
+      meta: {
+        title: "医院",
+      },
       children: [
         {
           path: "register",
           component: () => import("@/pages/hospital/register/index.vue"),
+          meta: {
+            title: "预约挂号",
+          },
         },
         {
           path: "notice",
           component: () => import("@/pages/hospital/notice/index.vue"),
+          meta: {
+            title: "预约通知",
+          },
         },
         {
           path: "detail",
           component: () => import("@/pages/hospital/detail/index.vue"),
+          meta: {
+            title: "医院详情",
+          },
         },
         {
           path: "close",
           component: () => import("@/pages/hospital/close/index.vue"),
+          meta: {
+            title: "停诊信息",
+          },
         },
         {
           path: "search",
           component: () => import("@/pages/hospital/search/index.vue"),
+          meta: {
+            title: "查询",
+          },
         },
         {
           path: "stepFirst",
           component: () => import("@/pages/hospital/register/stepFirst.vue"),
+          meta: {
+            title: "预约第一步",
+          },
         },
         {
           path: "stepSecond",
           component: () => import("@/pages/hospital/register/stepSecond.vue"),
+          meta: {
+            title: "预约第二步",
+          },
         },
       ],
     },

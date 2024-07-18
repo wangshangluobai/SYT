@@ -94,7 +94,6 @@
   import { onMounted, ref } from "vue"
   import { useRoute, useRouter } from "vue-router"
   import { User } from "@element-plus/icons-vue"
-  import Visitor from "@/pages/hospital/register/visitor.vue"
   import type {
     PatientUserContainer,
     ReqPatientUser,

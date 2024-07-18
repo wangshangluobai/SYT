@@ -155,7 +155,11 @@
   import type { CascaderProps } from "element-plus"
   import { User } from "@element-plus/icons-vue"
   import { reqPatientUser } from "@/api/hospital/index"
-  import { reqCertationType, reqCity, reqAddOrUpdateUser } from "@/api/user"
+  import {
+    reqCertationType,
+    reqCity,
+    reqAddOrUpdateUser,
+  } from "@/api/user/index"
   import { onMounted, ref, reactive, watch } from "vue"
   import type {
     ReqPatientUser,
@@ -215,6 +219,11 @@
     let result: ReqPatientUser = await reqPatientUser()
     if (result.code == 200) {
       userArr.value = result.data
+      console.log(
+        "%c [ result.data ]-222",
+        "font-size:13px; background:#86288f; color:#ca6cd3;",
+        result.data
+      )
     }
   }
   //添加就诊人按钮的回调

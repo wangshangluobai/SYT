@@ -20,13 +20,15 @@ const app = createApp(App)
 import SYT_Header from "@/components/syt_header/index.vue"
 import SYT_Footer from "@/components/syt_footer/index.vue"
 import Login from "@/components/login/index.vue"
-import CountDown from "@/components/countdown/index.vue";
+import CountDown from "@/components/countdown/index.vue"
+import Visitor from "@/components/Visitor/index.vue"
 
 // 注册全局组件
 app.component("SYT-Header", SYT_Header)
 app.component("SYT-Footer", SYT_Footer)
 app.component("Login", Login)
 app.component("CountDown", CountDown)
+app.component("Visitor", Visitor)
 
 // 使用扩展
 app.use(router)

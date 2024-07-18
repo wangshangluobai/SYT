@@ -12,7 +12,8 @@
         <el-select
           placeholder="请选择就诊人"
           v-model="patientId"
-          @change="changeUser">
+          @change="changeUser"
+          style="width: 200px">
           <el-option
             label="请选择全部就诊人"
             value=""></el-option>
@@ -27,7 +28,8 @@
         <el-select
           placeholder="请选择订单状态"
           v-model="orderStatus"
-          @change="changeOrderState">
+          @change="changeOrderState"
+          style="width: 200px">
           <el-option
             label="全部订单"
             value=""></el-option>

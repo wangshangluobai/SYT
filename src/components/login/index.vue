@@ -173,11 +173,15 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, reactive, computed } from "vue"
+  import { ref, reactive, computed, watch } from "vue"
+  import { useRoute, useRouter } from "vue-router"
   import useUserStore from "@/store/modules/user"
   import { User, Lock } from "@element-plus/icons-vue"
   import { ElMessage } from "element-plus"
   import type { FormInstance } from "element-plus"
+
+  let $route = useRoute()
+  let $router = useRouter()
 
   const form = ref<FormInstance>()
 
@@ -269,6 +273,12 @@
     try {
       await userStore.userLogin(loginParams)
       userStore.visiable = false
+      let redirect = $route.query.redirect
+      if (redirect) {
+        $router.push(redirect as string)
+      } else {
+        $router.push("/home")
+      }
     } catch (error) {
       ElMessage({
         type: "error",
